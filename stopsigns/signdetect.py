@@ -4,15 +4,37 @@ from skimage.transform import pyramid_gaussian
 
 def detect_haar(img):
     """
-    Determines whether the input image contains a stop sign using a Haar classifier.
+    Determines whether the input image contains a stop sign using the trained Haar classifier.
     """
 
+    # Loads the classifier and reads the image. 
+    classifier = cv2.CascadeClassifier("stopsign_classifier.xml")
+    img = cv2.imread(img)
+    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+    stop_signs = classifier.detectMultiScale(img, 1.3, 5)
+
+    print(stop_signs)
+
+    for (x,y,w,h) in stop_signs:
+         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+         cv2.putText(image, "Sign #{}".format(i + 1), (x, y - 10),
+                 cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 0, 255), 2)
+         
+
+    cv2.imshow('img',img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 def detect_mse(img):
     """ 
     Determines whether the input image contains a stop sign using an image pyramid, a sliding window and 
     a simple MSE comparison. 
+    NB: ineffective, particularly in the case of low-resolution Streetview images. 
     """
+    # Sets the threshold of acceptance.
+    threshold = 0.1
+
     # Reads the input and template images. 
     img = cv2.imread(img)
     tmpl = cv2.imread("img/templates/ss_cheat.jpg")
@@ -39,10 +61,6 @@ def detect_mse(img):
             clone = img.copy()
             cv2.rectangle(clone, (x, y), (x + win_w, y + win_h), (0, 255, 0), 2)
             
-            #cv2.imshow("Window", clone)
-            #cv2.waitKey(1)
-            #time.sleep(0.025)
-            
             # Computes the MSE of the current window and the template image. 
             score = mse(window, resized)
 
@@ -51,10 +69,12 @@ def detect_mse(img):
                 best_score = score
                 best_match_image = clone
 
-    print("Best score: ", best_score)
-    cv2.imshow("Window", best_match_image)
-    cv2.waitKey(1)
-    time.sleep(10)
+    return best_score < threshold
+    
+    #print("Best score: ", best_score)
+    #cv2.imshow("Window", best_match_image)
+    #cv2.waitKey(1)
+    #time.sleep(10)
 
 def sliding_window(image, stepSize, windowSize):
     """
@@ -79,16 +99,3 @@ def mse(img1, img2):
     err /= float(img1.shape[0] * img2.shape[1])
 
     return err
-
-"""
-VISUALISATIONS
-------------------------
-
-SLIDING WINDOW:
-clone = resized.copy()
-cv2.rectangle(clone, (x, y), (x + winW, y + winH), (0, 255, 0), 2)
-cv2.imshow("Window", clone)
-cv2.waitKey(1)
-time.sleep(0.025)
-"""
-

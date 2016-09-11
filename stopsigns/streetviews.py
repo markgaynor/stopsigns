@@ -1,4 +1,25 @@
-import urllib.request, config
+import urllib.request, json
+from config import *
+
+def resolve_street(address_raw):
+    """
+    Takes a street 
+    """
+    
+    # Forms the url for the Geocoding API call. 
+    address = address_raw.replace(" ","+")
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + api_key
+    
+    try:
+        # Gets the JSON response from the Geocoding API. 
+        response = json.loads(urllib.request.urlopen(url).read().decode("utf-8"))
+        lat = response["results"][0]["geometry"]["location"]["lat"]
+        lng = response["results"][0]["geometry"]["location"]["lng"]
+    except:
+        print("Invalid request. Try again. Only the street name and area are needed.")
+        return None
+    
+    get(lat, lng, 230)
 
 def get(lt, lg, h):
     """

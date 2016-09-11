@@ -7,4 +7,3 @@ streetviews.get(lt, lg, h)
 img = "img/streetviews/lt" + str(lt) + "lg" + str(lg) + "h" + str(h) + ".jpg"
 
 signdetect.detect_haar(img)
-
