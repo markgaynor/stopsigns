@@ -21,15 +21,15 @@ Maps API key should be assigned to the variable ```api_key``` in /config.py
 
 Run ```example.py``` for an example of stop sign detection.
 
-Run ```run.py``` and provide an address to detect whether there is a stop sign at that address.
+Run ```run.py``` and provide an address in order to detect stop signs at that address.
 
 ### Attribution
 Classifier training was done following examples from Naotoshi Seo and Thorsten Ball.
 
 The (deprecated) template matching method followed examples from pyimagesearch.com.
 
-* http://note.sonots.com/SciSoftware/haartraining.html
-* http://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
+* http://note.sonots.com/SciSoftware/haartraining.html/
+* http://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html/
 * http://www.pyimagesearch.com/
 
 All map and Street View content © Google. 
