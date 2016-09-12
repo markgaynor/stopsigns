@@ -4,7 +4,7 @@ Detects stop signs in Google Street View images of a provided address using a Ha
 
 Also provides functionality to detect stop signs using feature matching, though this was deprecated due to inaccuracy (particularly over low-resolution Street View images). 
 
-![Example of stop sign detection]((https://raw.githubusercontent.com/markgaynor/stopsigns/master/example.png)
+![Example of stop sign detection](https://raw.githubusercontent.com/markgaynor/stopsigns/master/example.png)
 
 ### Requirements
 Python 3.x
@@ -30,4 +30,4 @@ http://note.sonots.com/SciSoftware/haartraining.html
 http://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
 http://www.pyimagesearch.com/
 
-All map and Street View content &copy Google. 
+All map and Street View content © Google. 
