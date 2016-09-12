@@ -1,14 +1,17 @@
 from stopsigns import streetviews
 from stopsigns import signdetect
+import sys
 
-# Gets an area from the user. 
-address = "20 Stonepark Abbey, Rathfarnham, Dublin"
-coords = None
-streetviews.resolve_street(address)
+print("*** STOP SIGN DETECTOR ***\n")
+        
+# Gets an area from the user, resolves it to coordinates and gets a Street View image covering every angle.
+address = input("Provide an address: ")
+images = streetviews.resolve_street(address)
 
+# Checks each of those images for a stop sign.
+for image in images:
+    if signdetect.detect_haar(image):
+        print("Stop sign detected.")
+        sys.exit()
 
-#lt, lg, h = 53.2905066, -6.2865601, 230
-#streetviews.get(lt, lg, h)
-#img = "img/streetviews/lt" + str(lt) + "lg" + str(lg) + "h" + str(h) + ".jpg"
-#signdetect.detect_haar(img)
-
+print("No stop sign detected.")

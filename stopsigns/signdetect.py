@@ -2,39 +2,44 @@ import cv2, time, imutils
 import numpy as np
 from skimage.transform import pyramid_gaussian
 
-def detect_haar(img):
+def detect_haar(img, example=False):
     """
     Determines whether the input image contains a stop sign using the trained Haar classifier.
+    Draws a rectangle around the detected sign if the second parameter is set to True. 
     """
 
     # Loads the classifier and reads the image. 
     classifier = cv2.CascadeClassifier("stopsign_classifier.xml")
     img = cv2.imread(img)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
+    
+    # Detects any stop signs in the image using the classifier, resizing at each iteration. 
     stop_signs = classifier.detectMultiScale(gray, 1.05, 2)
 
-    print(stop_signs)
-
-    for (x,y,w,h) in stop_signs:
-         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+    if example == True:
+        # Draws a rectangle around each detected sign and displays it. 
+        for (x,y,w,h) in stop_signs:
+            cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
          
-    cv2.imshow('img',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+        cv2.imshow('img',img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+    else:
+        # Returns true if any signs were detected. 
+        return stop_signs
 
 def detect_mse(img):
     """ 
     Determines whether the input image contains a stop sign using an image pyramid, a sliding window and 
     a simple MSE comparison. 
-    NB: ineffective, particularly in the case of low-resolution Streetview images. 
+    NB: Deprecated. Ineffective, particularly in the case of low-resolution Street View images. 
     """
     # Sets the threshold of acceptance.
     threshold = 0.1
 
     # Reads the input and template images. 
     img = cv2.imread(img)
-    tmpl = cv2.imread("img/templates/ss_cheat.jpg")
+    tmpl = cv2.imread("img/templates/stop_sign.jpg")
     
     # Records the best score. 
     best_score = 100000000
@@ -68,11 +73,6 @@ def detect_mse(img):
 
     return best_score < threshold
     
-    #print("Best score: ", best_score)
-    #cv2.imshow("Window", best_match_image)
-    #cv2.waitKey(1)
-    #time.sleep(10)
-
 def sliding_window(image, stepSize, windowSize):
     """
     Generates a sliding rectangular window across the input image. 

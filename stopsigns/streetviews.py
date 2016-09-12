@@ -3,7 +3,8 @@ from config import *
 
 def resolve_street(address_raw):
     """
-    Takes a street 
+    Takes a street name, gets the corresponding coordinates and a retrives Street View images of that point covering every angle.
+    Returns a list containing the path of every image retrieved. 
     """
     
     # Forms the url for the Geocoding API call. 
@@ -19,7 +20,17 @@ def resolve_street(address_raw):
         print("Invalid request. Try again. Only the street name and area are needed.")
         return None
     
-    get(lat, lng, 230)
+    # List to record image file paths.
+    paths = []
+
+    # Retrieves the four streetview images for that point.
+    angles = [0, 90, 180, 270]
+    for h in angles:
+        get(lat, lng, h)
+        paths.append("img/streetviews/lt" + str(lat) + "lg" + str(lng) + "h" + str(h) + ".jpg")
+    
+    # Returns the list of paths retrieved. 
+    return paths
 
 def get(lt, lg, h):
     """
