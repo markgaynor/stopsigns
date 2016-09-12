@@ -1,6 +1,6 @@
 from stopsigns import streetviews
 from stopsigns import signdetect
-import sys
+import sys, os
 
 print("*** STOP SIGN DETECTOR ***\n")
         
@@ -15,3 +15,8 @@ for image in images:
         sys.exit()
 
 print("No stop sign detected.")
+
+# Cleans up.
+for image in images:
+    os.remove(image)
+
