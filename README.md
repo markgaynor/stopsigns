@@ -14,12 +14,13 @@ NB: Depending on your Python environment, OpenCV may have to be manually compile
 
 For Anaconda: ```conda install -c https://conda.binstar.org/menpo opencv3```
 
-* Python modules: pip install -r requirements.txt 
+* Python modules: ```pip install -r requirements.txt```
 
 ### Usage
 Maps API key should be assigned to the variable ```api_key``` in /config.py
 
 Run ```example.py``` for an example of stop sign detection.
+
 Run ```run.py``` and provide an address to detect whether there is a stop sign at that address.
 
 ### Attribution
@@ -27,8 +28,8 @@ Classifier training was done following examples from Naotoshi Seo and Thorsten B
 
 The (deprecated) template matching method followed examples from pyimagesearch.com.
 
-http://note.sonots.com/SciSoftware/haartraining.html
-http://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
-http://www.pyimagesearch.com/
+* http://note.sonots.com/SciSoftware/haartraining.html
+* http://coding-robin.de/2013/07/22/train-your-own-opencv-haar-classifier.html
+* http://www.pyimagesearch.com/
 
 All map and Street View content © Google. 
