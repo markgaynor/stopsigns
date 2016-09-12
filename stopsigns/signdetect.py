@@ -10,18 +10,15 @@ def detect_haar(img):
     # Loads the classifier and reads the image. 
     classifier = cv2.CascadeClassifier("stopsign_classifier.xml")
     img = cv2.imread(img)
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    stop_signs = classifier.detectMultiScale(img, 1.3, 5)
+    stop_signs = classifier.detectMultiScale(gray, 1.05, 2)
 
     print(stop_signs)
 
     for (x,y,w,h) in stop_signs:
          cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-         cv2.putText(image, "Sign #{}".format(i + 1), (x, y - 10),
-                 cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 0, 255), 2)
          
-
     cv2.imshow('img',img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
