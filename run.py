@@ -10,7 +10,7 @@ images = streetviews.resolve_street(address)
 
 # Checks each of those images for a stop sign.
 for image in images:
-    if signdetect.detect_haar(image):
+    if len(signdetect.detect_haar(image)) > 0:
         print("Stop sign detected.")
         sys.exit()
 

@@ -14,7 +14,7 @@ def detect_haar(img, example=False):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # Detects any stop signs in the image using the classifier, resizing at each iteration. 
-    stop_signs = classifier.detectMultiScale(gray, 1.05, 2)
+    stop_signs = classifier.detectMultiScale(gray, 1.02, 10)
 
     if example == True:
         # Draws a rectangle around each detected sign and displays it. 
@@ -24,6 +24,8 @@ def detect_haar(img, example=False):
         cv2.imshow('img',img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+
+        return stop_signs
     else:
         # Returns true if any signs were detected. 
         return stop_signs
