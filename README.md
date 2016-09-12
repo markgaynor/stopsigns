@@ -10,9 +10,9 @@ Also provides functionality to detect stop signs using feature matching, though 
 * Python 3.x
 * OpenCV 3
 
-NB: Depending on your Python environment, OpenCV may have to be manually compiled. 
+NB: Depending on your environment, OpenCV may have to be built from source. 
 
-For Anaconda: ```conda install -c https://conda.binstar.org/menpo opencv3```
+Easy installation using Anaconda (x86): ```conda install -c https://conda.binstar.org/menpo opencv3```
 
 * Python modules: ```pip install -r requirements.txt```
 
