@@ -7,14 +7,14 @@ Also provides functionality to detect stop signs using feature matching, though 
 ![Example of stop sign detection](https://raw.githubusercontent.com/markgaynor/stopsigns/master/example.png)
 
 ### Requirements
-Python 3.x
-OpenCV 3
+* Python 3.x
+* OpenCV 3
 
 NB: Depending on your Python environment, OpenCV may have to be manually compiled. 
+
 For Anaconda: ```conda install -c https://conda.binstar.org/menpo opencv3```
 
-Python modules:
-pip install -r requirements.txt 
+* Python modules: pip install -r requirements.txt 
 
 ### Usage
 Maps API key should be assigned to the variable ```api_key``` in /config.py
@@ -24,6 +24,7 @@ Run ```run.py``` and provide an address to detect whether there is a stop sign a
 
 ### Attribution
 Classifier training was done following examples from Naotoshi Seo and Thorsten Ball.
+
 The (deprecated) template matching method followed examples from pyimagesearch.com.
 
 http://note.sonots.com/SciSoftware/haartraining.html
