@@ -1,6 +1,8 @@
 import urllib.request, json
 from config import *
 
+api_key = ""
+
 def resolve_street(address_raw):
     """
     Takes a street name, gets the corresponding coordinates and a retrives Street View images of that point covering every angle.
