@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Configuring Python applications with the config module</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2006-02-03 02:09:16 +0100 (Fri, 03 Feb 2006) $
+:Revision: $Revision: 4332 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="configuring-python-applications-with-the-config-module">
+<h1 class="title">Configuring Python applications with the <tt class="docutils literal"><span class="pre">config</span></tt> module</h1>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference" href="#introduction" id="id1" name="id1">1&nbsp;&nbsp;&nbsp;Introduction</a></li>
+<li><a class="reference" href="#simple-usage" id="id2" name="id2">2&nbsp;&nbsp;&nbsp;Simple Usage</a></li>
+<li><a class="reference" href="#evaluating-values" id="id3" name="id3">3&nbsp;&nbsp;&nbsp;Evaluating values</a></li>
+<li><a class="reference" href="#dealing-with-repeating-values-and-mappings" id="id4" name="id4">4&nbsp;&nbsp;&nbsp;Dealing with repeating values and mappings</a></li>
+<li><a class="reference" href="#handling-cross-references" id="id5" name="id5">5&nbsp;&nbsp;&nbsp;Handling cross-references</a></li>
+<li><a class="reference" href="#using-expressions" id="id6" name="id6">6&nbsp;&nbsp;&nbsp;Using expressions</a></li>
+<li><a class="reference" href="#including-configurations-within-others" id="id7" name="id7">7&nbsp;&nbsp;&nbsp;Including configurations within others</a></li>
+<li><a class="reference" href="#changing-a-configuration" id="id8" name="id8">8&nbsp;&nbsp;&nbsp;Changing a configuration</a></li>
+<li><a class="reference" href="#cascading-configurations" id="id9" name="id9">9&nbsp;&nbsp;&nbsp;Cascading configurations</a></li>
+<li><a class="reference" href="#merging-configurations" id="id10" name="id10">10&nbsp;&nbsp;&nbsp;Merging configurations</a></li>
+<li><a class="reference" href="#integrating-with-command-line-options" id="id11" name="id11">11&nbsp;&nbsp;&nbsp;Integrating with command-line options</a></li>
+<li><a class="reference" href="#uniform-component-configuration" id="id12" name="id12">12&nbsp;&nbsp;&nbsp;Uniform component configuration</a></li>
+<li><a class="reference" href="#unicode-support" id="id13" name="id13">13&nbsp;&nbsp;&nbsp;Unicode support</a></li>
+<li><a class="reference" href="#download" id="id14" name="id14">14&nbsp;&nbsp;&nbsp;Download</a></li>
+<li><a class="reference" href="#further-work" id="id15" name="id15">15&nbsp;&nbsp;&nbsp;Further work</a></li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id1" id="introduction" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<p>This document describes <tt class="docutils literal"><span class="pre">config</span></tt>, a module for configuring Python programs which aims to offer more power and flexibility than the existing <tt class="docutils literal"><span class="pre">ConfigParser</span></tt> module. Python programs which are designed as a hierarchy of components can use <tt class="docutils literal"><span class="pre">config</span></tt> to configure their various components in a uniform way. This module is expected to be used with Python versions &gt;= 2.2.</p>
+<p>A complete API is <a class="reference" href="http://www.red-dove.com/config/index.html">available</a>, and a test suite is included with the distribution - see the Download link above for further details.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id2" id="simple-usage" name="simple-usage">2&nbsp;&nbsp;&nbsp;Simple Usage</a></h1>
+<p>The simplest scenario is, of course, &quot;Hello, world&quot;. Let's look at a very simple configuration file <tt class="docutils literal"><span class="pre">simple.cfg</span></tt> where a message to be printed is configured:</p>
+<pre class="literal-block">
+# The message to print (this is a comment)
+message: 'Hello, world!'
+</pre>
+<p>and the program which uses it:</p>
+<pre class="literal-block">
+from config import Config
+
+# You can pass any file-like object; if it has a name attribute,
+# that name is used when file format error messages are printed
+f = file('simple.cfg')
+cfg = Config(f)
+print cfg.message
+</pre>
+<p>which results in the expected:</p>
+<pre class="literal-block">
+Hello, world!
+</pre>
+<p>A configuration file is, at the top level, a list of key-value pairs. Each value, as we'll see later, can be a sequence or a mapping, and these can be nested without any practical limit.</p>
+<p>In addition to attribute access (<tt class="docutils literal"><span class="pre">cfg.message</span></tt> in the example above), you can also access a value in the configuration using the <tt class="docutils literal"><span class="pre">getByPath</span></tt> method of a configuration: <tt class="docutils literal"><span class="pre">cfg.getByPath('message')</span></tt> would be equivalent. The parameter passed to <tt class="docutils literal"><span class="pre">getByPath</span></tt> is the path of the required value. The <tt class="docutils literal"><span class="pre">getByPath</span></tt> method is useful for when the path is variable. It could even be read from a configuration :-) There is also a <tt class="docutils literal"><span class="pre">get</span></tt> method which acts like the dictionary method of the same name - you can pass a default value which is returned if the value is not found in the configuration. The <tt class="docutils literal"><span class="pre">get</span></tt> method works with dictionary keys or attribute names, rather than paths. Hence, you may call <tt class="docutils literal"><span class="pre">cfg.getByPath('a.b')</span></tt> which is equivalent to <tt class="docutils literal"><span class="pre">cfg.a.b</span></tt>, or you can call <tt class="docutils literal"><span class="pre">cfg.a.get('b',</span> <span class="pre">1234)</span></tt> which will return <tt class="docutils literal"><span class="pre">cfg.a.b</span></tt> if it is defined, and <tt class="docutils literal"><span class="pre">1234</span></tt> otherwise.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id3" id="evaluating-values" name="evaluating-values">3&nbsp;&nbsp;&nbsp;Evaluating values</a></h1>
+<p>So far, so obvious. Now, suppose that we need to print not to <tt class="docutils literal"><span class="pre">stdout</span></tt>, but to <tt class="docutils literal"><span class="pre">stdout</span></tt> or <tt class="docutils literal"><span class="pre">stderr</span></tt> depending on the configuration. Then, the modified configuration file might look like this:</p>
+<pre class="literal-block">
+# The message to print (this is a comment)
+message: 'Hello, world!'
+# The stream to print to (comments are of course optional)
+stream: `sys.stderr`
+</pre>
+<p>Notice the use of backticks to indicate a special value. The corresponding program would be:</p>
+<pre class="literal-block">
+from config import Config
+
+# You can pass any file-like object; if it has a name attribute,
+# that name is used when error messages are printed
+f = file('simple.cfg')
+cfg = Config(f)
+# The cfg attributes correspond to the keys in the
+# configuration file
+print &gt;&gt; cfg.stream, cfg.message
+</pre>
+<p>with the same result as before:</p>
+<pre class="literal-block">
+Hello, world!
+</pre>
+<p>Notice that the &quot;<tt class="docutils literal"><span class="pre">sys.stderr</span></tt>&quot; in backticks was apparently correctly evaluated. This is not a special case, but a generalized mechanism; you can provide any dotted-identifier expression in backticks and it will be evaluated against a list of namespaces you specify. The reason for the dotted-identifier mechanism is to provide some security - the system does <strong>not</strong> perform an unrestricted eval(). By default, the system supports <tt class="docutils literal"><span class="pre">sys</span></tt> and <tt class="docutils literal"><span class="pre">os</span></tt> modules, which gives easy access to environment variables (for example).</p>
+<p>If you change the configuration file to:</p>
+<pre class="literal-block">
+# The message to print (this is a comment)
+message: 'Hello, world!'
+# The stream to print to (comments are of course optional)
+stream: `sys.stderr`
+value: `handlers.DEFAULT_TCP_LOGGING_PORT`
+</pre>
+<p>and the program to:</p>
+<pre class="literal-block">
+f = file('simple.cfg')
+cfg = Config(f)
+print &gt;&gt; cfg.stream, cfg.message, cfg.value
+</pre>
+<p>then running it as is would give rise to an error:</p>
+<pre class="literal-block">
+config.ConfigResolutionError: unable to evaluate `handlers.DEFAULT_TCP_LOGGING_PORT` in the configuration's namespaces
+</pre>
+<p>because an appropriate namespace is not in the list. To rectify this, we modify the program to:</p>
+<pre class="literal-block">
+f = file('simple.cfg')
+cfg = Config(f)
+# Add lines to import a namespace and add it to the list of namespaces used
+import logging, logging.handlers
+cfg.add_namespace(logging)
+print &gt;&gt; cfg.stream, cfg.message, cfg.value
+</pre>
+<p>with a more satisfactory result:</p>
+<pre class="literal-block">
+Hello, world! 9020
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id4" id="dealing-with-repeating-values-and-mappings" name="dealing-with-repeating-values-and-mappings">4&nbsp;&nbsp;&nbsp;Dealing with repeating values and mappings</a></h1>
+<p>The <tt class="docutils literal"><span class="pre">config</span></tt> module allows you to specify repeating values using syntax which is very similar to Python's list syntax. You can also use syntax which is almost identical to Python's dict syntax to specify mappings in the configuration. If the application is required to print a sequence of messages to corresponding streams, you could use a configuration file like this:</p>
+<pre class="literal-block">
+messages:
+[
+  { stream : `sys.stderr`, message: 'Welcome' },
+  { stream : `sys.stdout`, message: 'Welkom' },
+  { stream : `sys.stderr`, message: 'Bienvenue' },
+]
+</pre>
+<p>and the program would look like this:</p>
+<pre class="literal-block">
+from config import Config
+
+f = file('simple.cfg')
+cfg = Config(f)
+for m in cfg.messages:
+    print &gt;&gt; m.stream, m.message
+</pre>
+<p>Running the above would give what you would expect intuitively:</p>
+<pre class="literal-block">
+Welcome
+Welkom
+Bienvenue
+</pre>
+<p>The preamble to the above example mentioned that the list and dict syntax of the <tt class="docutils literal"><span class="pre">config</span></tt> module is very similar or almost identical to Python's. The main differences are:</p>
+<ul class="simple">
+<li>You do not need to specify commas between dict and list entries - you can use either commas or line breaks to delineate the items.</li>
+<li>Strings need only be quoted if they contain non-identifier characters (alphanumeric and underscore).</li>
+</ul>
+<p>The module is fairly liberal about whitespace and is not indentation-sensitive:</p>
+<pre class="literal-block">
+messages:
+[
+  {
+    stream : `sys.stderr`
+    message: Welcome
+    name: 'Harry'
+  }
+  {
+    stream : `sys.stdout`
+    message: Welkom
+    name: 'Ruud'
+  }
+  {
+    stream  : `sys.stderr`
+    message : Bienvenue
+    name    : Yves
+  }
+]
+</pre>
+<p>However, there is one area where whitespace can be significant; see below.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id5" id="handling-cross-references" name="handling-cross-references">5&nbsp;&nbsp;&nbsp;Handling cross-references</a></h1>
+<p>Sometimes there is a need to cross-reference one part of the configuration from another. Suppose in the above configuration, the third message (the one in French) needs to use the same stream as the English message, whatever stream that might be. This can be expressed as follows:</p>
+<pre class="literal-block">
+messages:
+[
+  {
+    stream : `sys.stderr`
+    message: 'Welcome'
+    name: 'Harry'
+  }
+  {
+    stream : `sys.stdout`
+    message: 'Welkom'
+    name: 'Ruud'
+  }
+  {
+    stream : $messages[0].stream
+    message: 'Bienvenue'
+    name: Yves
+  }
+]
+</pre>
+<p>The <tt class="docutils literal"><span class="pre">$</span></tt> syntax is used because the intent is similar to substitution: <tt class="docutils literal"><span class="pre">$messages[0].stream</span></tt> is replaced with the value to which it refers.</p>
+<p>The above configuration works with the program:</p>
+<pre class="literal-block">
+from config import Config
+
+f = file('simple.cfg')
+cfg = Config(f)
+for m in cfg.messages:
+    s = '%s, %s' % (m.message, m.name)
+    try:
+        print &gt;&gt; m.stream, s
+    except IOError, e:
+        print e
+</pre>
+<p>to give:</p>
+<pre class="literal-block">
+Welcome, Harry
+Welkom, Ruud
+Bienvenue, Yves
+</pre>
+<p>However, if you change the file to:</p>
+<pre class="literal-block">
+messages:
+[
+  {
+    stream : `sys.stdin`
+    message: 'Welcome'
+    name: 'Harry'
+  }
+  {
+    stream : `sys.stdout`
+    message: 'Welkom'
+    name: 'Ruud'
+  }
+  {
+    stream : $messages[0].stream
+    message: 'Bienvenue'
+    name: Yves
+  }
+]
+</pre>
+<p>and run the program again (note the change to <tt class="docutils literal"><span class="pre">sys.stdin</span></tt>, which is bound to cause an error if we try to write to it), you get two errors:</p>
+<pre class="literal-block">
+(0, 'Error')
+Welkom, Ruud
+(0, 'Error')
+</pre>
+<p>This is because the stream for the third message is effectively the same as that for the first message.</p>
+<p>Note that in the above expression <tt class="docutils literal"><span class="pre">$messages[0].stream</span></tt>, whitespace is significant before the <tt class="docutils literal"><span class="pre">[</span></tt>. This is so that we can distinguish between <tt class="docutils literal"><span class="pre">[</span> <span class="pre">$a[1]</span> <span class="pre">]</span></tt> (a sequence whose single element is the second element of the sequence referenced as <tt class="docutils literal"><span class="pre">a</span></tt>) and
+<tt class="docutils literal"><span class="pre">[</span> <span class="pre">$a</span> <span class="pre">[1]</span> <span class="pre">]</span></tt> (a two-element sequence whose first element is the value referenced by <tt class="docutils literal"><span class="pre">a</span></tt> and whose second element is the sequence with the single element which is integer 1.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id6" id="using-expressions" name="using-expressions">6&nbsp;&nbsp;&nbsp;Using expressions</a></h1>
+<p>Although calculations are not normally the preserve of configuration modules, there are times when it is useful to express configuration values in terms of others. For example, an overall time period may be specified and other configuration values are fractions thereof. It may also be desirable to perform other simple calculations declaratively, e.g. concatenation of numerous file names to a base directory to get a final pathname. To support this, the <tt class="docutils literal"><span class="pre">config</span></tt> module allows expressions involving <tt class="docutils literal"><span class="pre">+</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt>, <tt class="docutils literal"><span class="pre">*</span></tt>, <tt class="docutils literal"><span class="pre">/</span></tt> and <tt class="docutils literal"><span class="pre">%</span></tt> to be used in a configuration. The <tt class="docutils literal"><span class="pre">+</span></tt> operator can be used for string concatenation. For example, the file:</p>
+<pre class="literal-block">
+total_period : 100
+header_time: 0.3 * $total_period
+steady_time: 0.5 * $total_period
+trailer_time: 0.2 * $total_period
+base_prefix: '/my/app/'
+log_file: $base_prefix + 'test.log'
+</pre>
+<p>used with the program:</p>
+<pre class="literal-block">
+from config import Config
+
+f = file('simple.cfg')
+cfg = Config(f)
+
+print &quot;Header time: %d&quot; % cfg.header_time
+print &quot;Steady time: %d&quot; % cfg.steady_time
+print &quot;Trailer time: %d&quot; % cfg.trailer_time
+print &quot;Log file name: %s&quot; % cfg.log_file
+</pre>
+<p>leads to the result:</p>
+<pre class="literal-block">
+Header time: 30
+Steady time: 50
+Trailer time: 20
+Log file name: /my/app/test.log
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id7" id="including-configurations-within-others" name="including-configurations-within-others">7&nbsp;&nbsp;&nbsp;Including configurations within others</a></h1>
+<p>You can include a configuration within another configuration at any point where you would specify a value. The included configuration is treated as if it were a dictionary at the inclusion point. Hence, given the configuration file:</p>
+<pre class="literal-block">
+# application configuration
+app:
+{
+  name : MyApplication
+  base: '/path/to/app/logs/'
+  # support team email address
+  support_team: myappsupport
+  mail_domain: '&#64;my-company.com'
+}
+# logging for the app
+logging: &#64;&quot;logging.cfg&quot;
+test: $logging.handler.email.from
+</pre>
+<p>The <tt class="docutils literal"><span class="pre">logging</span></tt> key in this configuration includes another file called <tt class="docutils literal"><span class="pre">logging.cfg</span></tt>, which looks like this:</p>
+<pre class="literal-block">
+# root logger configuration
+root:
+{
+  level     : DEBUG
+  handlers  : [$handlers.console, $handlers.file, $handlers.email]
+}
+# logging handlers
+handlers:
+{
+  console:  [
+              # the class to instantiate
+              StreamHandler,
+              # how to configure the instance
+              {
+                # the logger level
+                level : WARNING
+                # the stream to use
+                stream  : `sys.stderr` }
+            ]
+  file:     [ FileHandler, { filename: $app.base + $app.name + '.log', mode : 'a' } ]
+  socket:   [ `handlers.SocketHandler`, {
+                  host: localhost,
+                  # use this port for now
+                  port: `handlers.DEFAULT_TCP_LOGGING_PORT`} ]
+  nt_eventlog: [`handlers.NTEventLogHandler`, { appname: $app.name, logtype : Application } ]
+  email:    [ `handlers.SMTPHandler`,
+              { level: CRITICAL,
+                host: localhost,
+                port: 25,
+                from: $app.name + $app.mail_domain,
+                to: [$app.support_team + $app.mail_domain, 'QA' + $app.mail_domain, 'product_manager' + $app.mail_domain],
+                subject: 'Take cover' } ]
+}
+# the loggers which are configured
+loggers:
+{
+  &quot;input&quot;     : { handlers: [$handlers.socket] }
+  &quot;input.xls&quot; : { handlers: [$handlers.nt_eventlog] }
+}
+</pre>
+<p>Given the above, the program:</p>
+<pre class="literal-block">
+from config import Config
+
+cfg = Config(file('app.cfg'))
+file = open('test.txt', 'w')
+cfg.save(file)
+file.close()
+file = open('testlog.txt', 'w')
+cfg.logging.save(file)
+file.close()
+file = open('root.txt', 'w')
+cfg.logging.root.save(file)
+file.close()
+import logging, logging.handlers
+cfg.add_namespace(logging)
+print cfg.logging.loggers['input.xls'].handlers[0][0]
+print cfg.logging.handlers.console[1].stream
+print cfg['logging']['handlers']['console'][1]['stream']
+print cfg.logging.handlers.email[1]['from']
+x = cfg.logging.handlers.email[1].to
+print x
+for a in x:
+    print a
+print x[0:2]
+print cfg.logging.handlers.file[1].filename
+</pre>
+<p>Prints the following:</p>
+<pre class="literal-block">
+logging.handlers.NTEventLogHandler
+&lt;open file '&lt;stderr&gt;', mode 'w' at 0x0088E0A0&gt;
+&lt;open file '&lt;stderr&gt;', mode 'w' at 0x0088E0A0&gt;
+MyApplication&#64;my-company.com
+['myappsupport&#64;my-company.com', 'QA&#64;my-company.com', 'product_manager&#64;my-company.com']
+myappsupport&#64;my-company.com
+QA&#64;my-company.com
+product_manager&#64;my-company.com
+['myappsupport&#64;my-company.com', 'QA&#64;my-company.com']
+/path/to/app/logs/MyApplication.log
+</pre>
+<p>You will see from the code of the above program that there are a number of ways of accessing portions of the configuration, and you will also see that parts of the configuration have been written out. Here is <tt class="docutils literal"><span class="pre">test.txt</span></tt>, which was used when writing out the whole configuration:</p>
+<pre class="literal-block">
+# application configuration
+app :
+{
+  name : 'MyApplication'
+  base : '/path/to/app/logs/'
+  # support team email address
+  support_team : 'myappsupport'
+  mail_domain : '&#64;my-company.com'
+}
+# logging for the app
+logging :
+{
+  # root logger configuration
+  root :
+  {
+    level : 'DEBUG'
+    handlers :
+    [
+      $handlers.console
+      $handlers.file
+      $handlers.email
+    ]
+  }
+  # logging handlers
+  handlers :
+  {
+    console :
+    [
+      # the class to instantiate
+      StreamHandler
+      # how to configure the instance
+      {
+        # the logger level
+        level : 'WARNING'
+        # the stream to use
+        stream : `sys.stderr`
+      }
+    ]
+    file :
+    [
+      FileHandler
+      {
+        filename : $app.base + $app.name + '.log'
+        mode : 'a'
+      }
+    ]
+    socket :
+    [
+      `handlers.SocketHandler`
+      {
+        host : 'localhost'
+        # use this port for now
+        port : `handlers.DEFAULT_TCP_LOGGING_PORT`
+      }
+    ]
+    nt_eventlog :
+    [
+      `handlers.NTEventLogHandler`
+      {
+        appname : $app.name
+        logtype : 'Application'
+      }
+    ]
+    email :
+    [
+      `handlers.SMTPHandler`
+      {
+        level : 'CRITICAL'
+        host : 'localhost'
+        port : 25
+        from : $app.name + $app.mail_domain
+        to :
+        [
+          $app.support_team + $app.mail_domain
+          'QA' + $app.mail_domain
+          'product_manager' + $app.mail_domain
+        ]
+        subject : 'Take cover'
+      }
+    ]
+  }
+  # the loggers which are configured
+  loggers :
+  {
+    input :
+    {
+      handlers :
+      [
+        $handlers.socket
+      ]
+    }
+    'input.xls' :
+    {
+      handlers :
+      [
+        $handlers.nt_eventlog
+      ]
+    }
+  }
+}
+test : $logging.handler.email.from
+</pre>
+<p>You will see that the entire configuration (including the included file) has been written out, and that ordering and comments have been preserved. If we examine <tt class="docutils literal"><span class="pre">testlog.txt</span></tt>, into which the logging part of the configuration was written, we see:</p>
+<pre class="literal-block">
+# root logger configuration
+root :
+{
+  level : 'DEBUG'
+  handlers :
+  [
+    $handlers.console
+    $handlers.file
+    $handlers.email
+  ]
+}
+# logging handlers
+handlers :
+{
+  console :
+  [
+    # the class to instantiate
+    StreamHandler
+    # how to configure the instance
+    {
+      # the logger level
+      level : 'WARNING'
+      # the stream to use
+      stream : `sys.stderr`
+    }
+  ]
+  file :
+  [
+    FileHandler
+    {
+      filename : $app.base + $app.name + '.log'
+      mode : 'a'
+    }
+  ]
+  socket :
+  [
+    `handlers.SocketHandler`
+    {
+      host : 'localhost'
+      # use this port for now
+      port : `handlers.DEFAULT_TCP_LOGGING_PORT`
+    }
+  ]
+  nt_eventlog :
+  [
+    `handlers.NTEventLogHandler`
+    {
+      appname : $app.name
+      logtype : 'Application'
+    }
+  ]
+  email :
+  [
+    `handlers.SMTPHandler`
+    {
+      level : 'CRITICAL'
+      host : 'localhost'
+      port : 25
+      from : $app.name + $app.mail_domain
+      to :
+      [
+        $app.support_team + $app.mail_domain
+        'QA' + $app.mail_domain
+        'product_manager' + $app.mail_domain
+      ]
+      subject : 'Take cover'
+    }
+  ]
+}
+# the loggers which are configured
+loggers :
+{
+  input :
+  {
+    handlers :
+    [
+      $handlers.socket
+    ]
+  }
+  'input.xls' :
+  {
+    handlers :
+    [
+      $handlers.nt_eventlog
+    ]
+  }
+}
+</pre>
+<p>which is just the logging configuration. If we examine <tt class="docutils literal"><span class="pre">root.txt</span></tt>, we see the portion relating to the root logger:</p>
+<pre class="literal-block">
+level : 'DEBUG'
+handlers :
+[
+  $handlers.console
+  $handlers.file
+  $handlers.email
+]
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id8" id="changing-a-configuration" name="changing-a-configuration">8&nbsp;&nbsp;&nbsp;Changing a configuration</a></h1>
+<p>There's not much point in being able to save a configuration programatically if you can't make changes to it programatically. This can be done using standard attribute syntax. For example, given the file:</p>
+<pre class="literal-block">
+messages :
+[
+  {
+    stream : `sys.stdin`
+    message : 'Welcome'
+    name : 'Harry'
+  }
+  {
+    stream : `sys.stdout`
+    message : 'Welkom'
+    name : 'Ruud'
+  }
+  {
+    stream : $messages[0].stream
+    message : 'Bienvenue'
+    name : 'Yves'
+  }
+]
+</pre>
+<p>the following program could be used to modify the configuration and save the changes:</p>
+<pre class="literal-block">
+from config import Config
+
+f = file('simple.cfg')
+cfg = Config(f)
+
+cfg.written = 1234
+cfg.messages[2].surname = 'Montand'
+
+f = file('test.txt', 'w')
+cfg.save(f)
+print 'written'  in cfg
+print 'writen' in cfg
+print 'surname' in cfg.messages[2]
+print 'xyzzy' in cfg.messages[2]
+</pre>
+<p>With the printed output:</p>
+<pre class="literal-block">
+True
+False
+True
+False
+</pre>
+<p>and the output file:</p>
+<pre class="literal-block">
+messages :
+[
+  {
+    stream : `sys.stdin`
+    message : 'Welcome'
+    name : 'Harry'
+  }
+  {
+    stream : `sys.stdout`
+    message : 'Welkom'
+    name : 'Ruud'
+  }
+  {
+    stream : $messages[0].stream
+    message : 'Bienvenue'
+    name : 'Yves'
+    surname : 'Montand'
+  }
+]
+written : 1234
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id9" id="cascading-configurations" name="cascading-configurations">9&nbsp;&nbsp;&nbsp;Cascading configurations</a></h1>
+<p>There may be times when you want to cascade configurations - e.g. at the suite, program and user level. When a value is required, you could check the user configuration first, then the configuration at program level, and finally at program suite level. To do this, you can use the handy <tt class="docutils literal"><span class="pre">ConfigList</span></tt> class, as in the following example:</p>
+<pre class="literal-block">
+from config import Config, ConfigList
+
+cfglist = ConfigList()
+cfglist.append(Config(file('/path/to/user.cfg')))
+cfglist.append(Config(file('/path/to/program.cfg')))
+cfglist.append(Config(file('/path/to/suite.cfg')))
+</pre>
+<p>To access a configuration value (e.g. <tt class="docutils literal"><span class="pre">verbosity</span></tt>), you can say:</p>
+<pre class="literal-block">
+cfglist.getByPath('verbosity')
+</pre>
+<p>and the value from the first configuration which defines <tt class="docutils literal"><span class="pre">verbosity</span></tt> will be returned.</p>
+<p>This technique can also be used where you want to override configuration values with command-line values. See the section below entitled &quot;<a class="reference" href="#integrating-with-command-line-options">Integrating with command-line options</a>&quot; for how the <tt class="docutils literal"><span class="pre">config</span></tt> module can be used with the standard library's <tt class="docutils literal"><span class="pre">optparse</span></tt> module.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id10" id="merging-configurations" name="merging-configurations">10&nbsp;&nbsp;&nbsp;Merging configurations</a></h1>
+<p>There are two ways in which configurations can be merged:</p>
+<ul class="simple">
+<li>If there are no clashing keys, you can load multiple configuration files into the same <tt class="docutils literal"><span class="pre">Config</span></tt> instance.</li>
+<li>You can use the <tt class="docutils literal"><span class="pre">ConfigMerger</span></tt> class to merge two configurations.</li>
+</ul>
+<p>To see how to use <tt class="docutils literal"><span class="pre">ConfigMerger</span></tt>, suppose you have two files, <tt class="docutils literal"><span class="pre">merge1.cfg</span></tt> and <tt class="docutils literal"><span class="pre">merge2.cfg</span></tt>, shown below:</p>
+<pre class="literal-block">
+value1: True
+value3: [1, 2, 3]
+value5: [7]
+value6: { 'a' : 1, 'c' : 3 }
+</pre>
+<p>and:</p>
+<pre class="literal-block">
+value2: False
+value4: [4, 5, 6]
+value5: ['abc']
+value6: { 'b' : 2, 'd' : 4 }
+</pre>
+<p>The following program:</p>
+<pre class="literal-block">
+from config import Config, ConfigMerger
+
+f = file('merge1.cfg')
+cfg1 = Config(f)
+f = file('merge2.cfg')
+cfg2 = Config(f)
+merger = ConfigMerger()
+merger.merge(cfg1, cfg2)
+f = file('test.txt', 'w')
+cfg1.save(f)
+</pre>
+<p>results in the following file being saved:</p>
+<pre class="literal-block">
+value1 : True
+value3 :
+[
+  1
+  2
+  3
+]
+value5 :
+[
+  7
+  abc
+]
+value6 :
+{
+  a : 1
+  c : 3
+  b : 2
+  d : 4
+}
+value2 : False
+value4 :
+[
+  4
+  5
+  6
+]
+</pre>
+<p>As you can see, the keys have been merged, and the sequence elements have been appended.</p>
+<p>Starting with V0.3.6, <tt class="docutils literal"><span class="pre">ConfigMerger</span></tt> takes in its constructor an optional resolver argument (a default resolver is provided which allows the behaviour to be the same as in earlier versions). The resolver can be any callable which is called with three arguments and returns a string. The arguments are map1, map2 and key, where map1 is the target mapping for the merge, map2 is the merge operand and key is the clashing key. If a clash occurs (key is in both map1 and map2), the resolver is called to try to resolve the conflict.
+It can return one of several values:</p>
+<ul class="simple">
+<li>&quot;merge&quot; - merge two Mappings.</li>
+<li>&quot;append&quot; - append one sequence to another.</li>
+<li>&quot;overwrite&quot; - overwrite the value in the merge target with that in the merge operand.</li>
+<li>&quot;mismatch&quot; - call handleMismatch to handle the mismatch.</li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id11" id="integrating-with-command-line-options" name="integrating-with-command-line-options">11&nbsp;&nbsp;&nbsp;Integrating with command-line options</a></h1>
+<p>It's fairly easy to integrate command line options with configurations read from files. We use the standard library's excellent <tt class="docutils literal"><span class="pre">optparse</span></tt> module to parse the command line for options, and make those options available to the application through the <tt class="docutils literal"><span class="pre">config</span></tt> API. Here's an example configuration file (<tt class="docutils literal"><span class="pre">cmdline.cfg</span></tt>):</p>
+<pre class="literal-block">
+cmdline_values:
+{
+  verbose : `cmdline.verbose`
+  file: `cmdline.filename`
+}
+other_config_items:
+{
+  whatever : 'you want'
+}
+</pre>
+<p>The program which demonstrates <tt class="docutils literal"><span class="pre">optparse</span></tt> integration is below:</p>
+<pre class="literal-block">
+from optparse import OptionParser
+from config import Config
+
+parser = OptionParser()
+parser.add_option(&quot;-f&quot;, &quot;--file&quot;,
+                action=&quot;store&quot;, type=&quot;string&quot;, dest=&quot;filename&quot;,
+                help=&quot;write report to FILE&quot;, metavar=&quot;FILE&quot;)
+parser.add_option(&quot;-q&quot;, &quot;--quiet&quot;,
+                action=&quot;store_false&quot;, dest=&quot;verbose&quot;, default=1,
+                help=&quot;don't print status messages to stdout&quot;)
+
+(options, args) = parser.parse_args()
+
+cfg = Config(file('cmdline.cfg'))
+cfg.addNamespace(options, 'cmdline')
+print &quot;The verbose option value is %r&quot; % cfg.cmdline_values.verbose
+print &quot;The file name is %r&quot; %  cfg.cmdline_values.file
+</pre>
+<p>Once we've parsed the command-line options using <tt class="docutils literal"><span class="pre">optparse</span></tt> and loaded the configuration, we add the parsed-options object as a namespace with name <tt class="docutils literal"><span class="pre">cmdline</span></tt>. When we then fetch <tt class="docutils literal"><span class="pre">cfg.cmdline_values.verbose</span></tt>, for example, this causes evaluation of <tt class="docutils literal"><span class="pre">cmdline.verbose</span></tt> against the configuration's namespaces, and fetches the appropriate value from the parsed-option object. The program, when run with arguments <tt class="docutils literal"><span class="pre">-q</span> <span class="pre">-f</span> <span class="pre">test</span></tt>, will print:</p>
+<pre class="literal-block">
+The verbose option value is False
+The file name is 'test'
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id12" id="uniform-component-configuration" name="uniform-component-configuration">12&nbsp;&nbsp;&nbsp;Uniform component configuration</a></h1>
+<p>You can use the <tt class="docutils literal"><span class="pre">config</span></tt> module to initialize a component hierarchy in a uniform manner. Typically, in a component,you initialize various attributes, some of which are other components. Suppose you have a component of class <tt class="docutils literal"><span class="pre">NetworkHandler</span></tt> which contains a particular subcomponent which is either of class <tt class="docutils literal"><span class="pre">HTTPHandler</span></tt> or of class <tt class="docutils literal"><span class="pre">FTPHandler</span></tt>. You could have a hierarchical configuration as follows:</p>
+<pre class="literal-block">
+netHandler:
+{
+  host: 'alpha'
+  port: 8080
+  protocol:
+  {
+    class: `HTTPHandler`
+    config:
+    {
+      secure: True
+      version: '1.1'
+      keepAlive: True
+    }
+  }
+}
+</pre>
+<p>You could define the initialization of these classes as:</p>
+<pre class="literal-block">
+class HTTPHandler:
+  def __init__(self, config):
+    self.secure = config.get('secure', False)
+    self.version = config.get('version', '1.0')
+    self.keepAlive = config.get('keepAlive', False)
+
+class NetworkHandler:
+  def __init__(self, config):
+    self.host = config.get('host', 'localhost')
+    self.port = config.get('port', 80)
+    protocolClass = config.protocol.get('class')
+    if protocolClass is None:
+      raise ValueError('NetworkHandler: protocol class not specified')
+    protocolConfig = config.protocol.get('config', {})
+    protocolHandler = protocolClass(protocolConfig)
+</pre>
+<p>and then a NetworkHandler could be initialized as follows:</p>
+<pre class="literal-block">
+from config import Config
+
+def makeNetworkHandler():
+  cfg = Config('network.cfg')
+  return NetworkHandler(cfg.netHandler)
+</pre>
+<p>In this scheme, each class has a constructor which takes a single argument - a configuration mapping. Subcomponents can be passed the appropriate mapping without the constructing class needing to know its schema. In the above example, <tt class="docutils literal"><span class="pre">NetworkHandler</span></tt> neither knows nor cares about the exact contents of the mapping with path <tt class="docutils literal"><span class="pre">netHandler.protocol.config</span></tt>. The creator of the configuration file needs only ensure that the mapping makes sense to the class being constructed - <tt class="docutils literal"><span class="pre">HTTPHandler</span></tt> in this case. If it was desired to use FTP instead, the <tt class="docutils literal"><span class="pre">netHandler.protocol</span></tt> mapping would perhaps look like this:</p>
+<pre class="literal-block">
+protocol:
+{
+  class: `FTPHandler`
+  config:
+  {
+    maxSize: 1048576
+  }
+}
+</pre>
+<p>which could be used with a class initialized like this:</p>
+<pre class="literal-block">
+class FTPHandler:
+  def __init__(self, config):
+    self.maxSize = config.get('maxSize', 32768)
+</pre>
+<p>You can see a more complete example of this in the files <tt class="docutils literal"><span class="pre">logconfig.cfg</span></tt> and <tt class="docutils literal"><span class="pre">logconfig.py</span></tt>, which configure logging using a scheme very like that described above.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id13" id="unicode-support" name="unicode-support">13&nbsp;&nbsp;&nbsp;Unicode support</a></h1>
+<p>Unicode support for reading files is provided through the <tt class="docutils literal"><span class="pre">ConfigInputStream</span></tt> class. This is used automatically by <tt class="docutils literal"><span class="pre">defaultStreamOpener</span></tt>. <tt class="docutils literal"><span class="pre">ConfigInputStream</span></tt> automatically recognizes BOMs (byte order marks) for UTF-8, UTF-16LE and UTF-16BE. If a BOM is present, it is used to determine how the stream is to be decoded. If there is no BOM recognized, the stream is treated as a non-Unicode stream, assumed to be in the correct encoding, and read without decoding. Example of use:</p>
+<pre class="literal-block">
+from config import ConfigInputStream
+
+for filename in ['ANSI.txt', 'Unicode8.txt', 'UnicodeLE.txt', 'UnicodeBE.txt']:
+    pathname = '/temp/' + filename
+    stream = file(pathname, 'rb')
+    print &quot;- raw contents of %s:&quot; % pathname
+    print repr(stream.read(6))
+    print repr(stream.readline())
+    stream.close()
+    stream = ConfigInputStream(file(pathname, 'rb'))
+    print &quot;- decoded contents of %s, encoding = %s:&quot; % (pathname, stream.encoding)
+    print repr(stream.read(6))
+    print repr(stream.readline())
+    stream.close()
+</pre>
+<p>which produces:</p>
+<pre class="literal-block">
+- raw contents of /temp/ANSI.txt:
+'Test\r\n'
+'Line\r\n'
+- decoded contents of /temp/ANSI.txt, encoding = None:
+'Test\r\n'
+'Line\r\n'
+- raw contents of /temp/Unicode8.txt:
+'\xef\xbb\xbfTes'
+'t\r\n'
+- decoded contents of /temp/Unicode8.txt, encoding = utf-8:
+u'Test\r\n'
+u'Line\r\n'
+- raw contents of /temp/UnicodeLE.txt:
+'\xff\xfeT\x00e\x00'
+'s\x00t\x00\r\x00\n'
+- decoded contents of /temp/UnicodeLE.txt, encoding = utf-16le:
+u'Test\r\n'
+u'Line\r\n'
+- raw contents of /temp/UnicodeBE.txt:
+'\xfe\xff\x00T\x00e'
+'\x00s\x00t\x00\r\x00\n'
+- decoded contents of /temp/UnicodeBE.txt, encoding = utf-16be:
+u'Test\r\n'
+u'Line\r\n'
+</pre>
+<p>Unicode support for writing files is provided through the <tt class="docutils literal"><span class="pre">ConfigOutputStream</span></tt> class. Here is an example on how to use it:</p>
+<pre class="literal-block">
+from config import Config, ConfigOutputStream
+
+cfg = Config('app.cfg')
+file = ConfigOutputStream(open('root.txt', 'wb'), 'utf-16be')
+cfg.save(file)
+</pre>
+<p>If the encoding is one of <tt class="docutils literal"><span class="pre">utf-8</span></tt>, <tt class="docutils literal"><span class="pre">utf-16le</span></tt> or <tt class="docutils literal"><span class="pre">utf16-be</span></tt>, the appropriate BOM is written to the output. Note that the underlying stream should be opened in binary mode; newlines are automatically written as <tt class="docutils literal"><span class="pre">'\r\n'</span></tt> (Windows), <tt class="docutils literal"><span class="pre">'\r'</span></tt> (Mac) or <tt class="docutils literal"><span class="pre">'\n'</span></tt> (other).</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id14" id="download" name="download">14&nbsp;&nbsp;&nbsp;Download</a></h1>
+<p>Here is the current version, 0.3.6, in <a class="reference" href="config-0.3.6.tar.gz">tarball</a> and <a class="reference" href="config-0.3.6.zip">zip</a> formats.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id15" id="further-work" name="further-work">15&nbsp;&nbsp;&nbsp;Further work</a></h1>
+<p>The <tt class="docutils literal"><span class="pre">config</span></tt> module is in a very early state, though it is already quite usable. The syntax is broadly fixed, though adjustments may be made to e.g. backticks, $ notation for references, and the &#64; notation for file inclusion, depending on feedback. The use of builtin functions - e.g. include(&quot;x&quot;), get(an.attribute.chain), evaluate(sys.stderr) - has been considered, and not yet completely ruled out. Unicode support could be improved. No doubt there are bugs in the implementation, awaiting the completion of a more comprehensive test suite. Some minor changes in the API can be expected. All feedback will be gratefully received; please send it to vinay_sajip at red-dove.com or post it on the Python Wiki on the HierConfig page: <a class="reference" href="http://www.python.org/moin/HierConfig">http://www.python.org/moin/HierConfig</a>.</p>
+</div>
+</div>
+</body>
+</html>
