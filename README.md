@@ -1,6 +1,6 @@
 # Stop sign detection in Google Street View with Python and OpenCV
 
-Takes an address, and determines whether or not there is a stop sign there using Google Street View and a simple 24x24 Haar cascade classifier.
+Takes an address and determines whether or not there is a stop sign there using Google Street View and a simple 24x24 Haar cascade classifier.
 
 ![Example of stop sign detection](https://raw.githubusercontent.com/markgaynor/stopsigns/master/example.png)
 
