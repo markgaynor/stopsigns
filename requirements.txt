@@ -1,6 +1,6 @@
 cv2
-time
 imutils
+json
 numpy
 skimage
-json
+time

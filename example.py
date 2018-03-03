@@ -1,9 +1,8 @@
 from stopsigns import streetviews
 from stopsigns import signdetect
 
-lt, lg, h = 53.2905066, -6.2865601, 230
-streetviews.get(lt, lg, h)
+if __name__=="__main__":
+    lt, lg, h = 53.2905066, -6.2865601, 230
+    path = streetviews.get_img_at_coordinates(lt, lg, h)
 
-img = "img/streetviews/lt" + str(lt) + "lg" + str(lg) + "h" + str(h) + ".jpg"
-
-signdetect.detect_haar(img, True)
+    signdetect.detect_haar(path, True)

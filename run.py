@@ -1,22 +1,31 @@
+import sys
+import os
+import logging
+logging.basicConfig(level=logging.DEBUG, format="%(message)s")
+
 from stopsigns import streetviews
 from stopsigns import signdetect
-import sys, os
 
-print("*** STOP SIGN DETECTOR ***\n")
+def clean_up(images):
+    # Clean up.
+    for image in images:
+        os.remove(image)
+
+
+if __name__=="__main__":
+    logging.info("*** STOP SIGN DETECTOR ***\n")
         
-# Gets an area from the user, resolves it to coordinates and gets a Street View image covering every angle.
-address = input("Provide an address: ")
-images = streetviews.resolve_street(address)
+    # Get an area from the user, resolve it to coordinates and get Street View images covering every angle.
+    address = input("Provide an address: ")
+    images = streetviews.resolve_street(address)
 
-# Checks each of those images for a stop sign.
-for image in images:
-    if len(signdetect.detect_haar(image)) > 0:
-        print("Stop sign detected.")
-        sys.exit()
+    # Check each of those images for a stop sign.
+    for image in images:
+        if len(signdetect.detect_haar(image, "classifier.xml")) > 0:
+            logging.info("Stop sign detected. Exiting...")
+            clean_up(images)
+            sys.exit(1)
 
-print("No stop sign detected.")
-
-# Cleans up.
-for image in images:
-    os.remove(image)
+    logging.info("No stop sign detected.")
+    clean_up(images)
 

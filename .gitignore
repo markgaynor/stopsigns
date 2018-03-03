@@ -1,0 +1,5 @@
+venv/
+classifier/positives
+classifier/negatives
+classifier/samples
+classifier/*.txt
