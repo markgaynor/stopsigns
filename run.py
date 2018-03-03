@@ -6,6 +6,7 @@ logging.basicConfig(level=logging.DEBUG, format="%(message)s")
 from stopsigns import streetviews
 from stopsigns import signdetect
 
+
 def clean_up(images):
     # Clean up.
     for image in images:
